@@ -1,0 +1,22 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="row">
+    <div class="col-md-4">
+        <h2>Plex</h2>
+        <p>Last update:
+        </p>
+    </div>
+    <div class="col-md-4">
+        <h2>Current status</h2>
+        <p>Current status of pc;</p>
+        <p> @ViewBag.Message </p>
+        <p> @Html.ActionLink("Home", "Index", new { id = ViewBag.URL }) </p>
+    </div>
+    <div class="col-md-4">
+        <h2>Click here</h2>
+        <p></p>
+        <p></p>
+    </div>
+</div>
