@@ -18,10 +18,12 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                
             </div>
             <div class="navbar-collapse collapse">
+                
                 <ul class="nav navbar-nav">
+                    <li><a href="#">@ViewBag.AppName</a></li>
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
                 </ul>
                 @*@Html.Partial("_LoginPartial")*@
@@ -40,19 +42,35 @@
     @Scripts.Render("~/bundles/bootstrap")
     <script type="text/javascript">
     $("#btnShutdown").click(function () {
-        var actionUrl = '@Url.Action("Test", "Home")';
-        $.getJSON(actionUrl, displayData);
+        var actionUrl = '@Url.Action("Shutdown", "Home")';
+        if (confirm("Do you want to shutdown?")) {
+            ($.getJSON(actionUrl, displayData))
+        };
+
+
     });
+    $("#btnBruteShutdown").click(function () {
+    var actionUrl = '@Url.Action("BruteShutdown", "Home")';
+        if (confirm("Do you want to force a shutdown?")) {
+            ($.getJSON(actionUrl, displayData))
+        };
+    });
+
+
 
     function displayData(response) {
         console.log(response);
         if (response != false) {
             var today = new Date();
             var now = today.getDate() + "-" + today.getMonth() + 1 + "-" + today.getFullYear() + " " + today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-            $("#movieList").text(now + " - " + response);
+            $("#lastUpdated").text("Lastupdate: "+now + " - " + response);
+            $("#lastupdate").addClass('alert-success alert');
         }
     }
+
+    //Loop the ping so that we know if pc is still running, every 3 seconds
     var i = 0;
+
     while (i!=1) {
         var actionUrl = '@Url.Action("Ping", "Home")';
         setInterval(function () { $.getJSON(actionUrl, displayData)},3000);

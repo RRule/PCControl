@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using System.Net.NetworkInformation;
 using System.Net;
 using System.Web.Configuration;
+using System.Diagnostics;
 
 namespace PCControl.Controllers
 {
@@ -17,9 +18,15 @@ namespace PCControl.Controllers
             result = LocalPing();
             return Json(result, JsonRequestBehavior.AllowGet);
         }
-        private void Shutdown()
+        public ActionResult Shutdown()
         {
-
+            ShutDownChild();
+            return Json("Shutting down", JsonRequestBehavior.AllowGet);
+        }
+        public ActionResult BruteShutdown()
+        {
+            ShutDownChild();
+            return Json("Shutting down", JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult Index()
@@ -38,8 +45,9 @@ namespace PCControl.Controllers
                 ViewBag.Message = "Is off";
             }
 
+            ViewBag.AppName = Environment.MachineName;
 
-            Response.AddHeader("Refresh", "35");
+            Response.AddHeader("Refresh", "80");
             return View();
         }
 
@@ -71,6 +79,14 @@ namespace PCControl.Controllers
             {
                 return false;
             }
+        }
+        private void ShutDownChild()
+        {
+            Process.Start("shutdown", "/s /t 2");
+        }
+        private void BruteShutDownChild()
+        {
+            Process.Start("shutdown", "/f /s /t 2");
         }
     }
 }

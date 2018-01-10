@@ -3,21 +3,24 @@
 }
 
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-4 statusbox">
         <h2>Plex</h2>
-        <p>Last update: </p>
+        <p>PC Health:</p>
     </div>
-    <div class="col-md-4">
+    <div class="col-md-4 alert-success alert statusbox" id="lastupdate">
         <h2>Current status</h2>
-        <p>Current status of pc;</p>
-        Lastupdate: <ul id="movieList"></ul>
+        <p>
+            Current status of pc
+            <ul id="lastUpdated">Lastupdate: </ul>
+        </p>
     </div>
-    <div class="col-md-4">
-        <h2>Click here</h2>
+    <div class="col-md-4 alert alert-danger statusbox">
+        <h2>Warning</h2>
         <p>
             <input name="btnShutdown" id="btnShutdown" type="submit" value="Shutdown">
-
         </p>
-        <p></p>
+        <p>
+            <input name="btnBruteShutdown" id="btnBruteShutdown" type="submit" value="Force Shutdown">
+        </p>
     </div>
 </div>
