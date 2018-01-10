@@ -5,20 +5,32 @@ using System.Web;
 using System.Web.Mvc;
 using System.Net.NetworkInformation;
 using System.Net;
+using System.Web.Configuration;
 
 namespace PCControl.Controllers
 {
     public class HomeController : Controller
     {
+        public ActionResult Ping()
+        {
+            bool result = false;
+            result = LocalPing();
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+        private void Shutdown()
+        {
+
+        }
 
         public ActionResult Index()
         {
+
             string shutdownURL = "1337";
             DateTime currentDate = DateTime.Now;
             bool isOn = LocalPing();
             if (isOn)
             {
-                ViewBag.Message = string.Format("Lastupdate {1} \r\nStatus:  {0}",  LocalPing()==true ? "on" : "off", currentDate);
+                ViewBag.Message = string.Format("Lastupdate {1} \r\nStatus:  {0}", LocalPing() == true ? "on" : "off", currentDate);
                 ViewBag.URL = shutdownURL;
             }
             else
@@ -50,7 +62,7 @@ namespace PCControl.Controllers
             Ping pingSender = new Ping();
             IPAddress address = IPAddress.Loopback;
             PingReply reply = pingSender.Send(address);
-
+            IPAddress clientip = IPAddress.Parse(WebConfigurationManager.AppSettings["clientip"]);
             if (reply.Status == IPStatus.Success)
             {
                 return true;

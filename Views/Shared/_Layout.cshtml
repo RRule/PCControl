@@ -6,6 +6,7 @@
     <title>@ViewBag.Title - My ASP.NET Application</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+    <script src="~/Scripts/jquery-1.10.2.js"></script>
 
 </head>
 <body>
@@ -22,10 +23,8 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
                 </ul>
-                @Html.Partial("_LoginPartial")
+                @*@Html.Partial("_LoginPartial")*@
             </div>
         </div>
     </div>
@@ -39,6 +38,30 @@
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
+    <script type="text/javascript">
+    $("#btnShutdown").click(function () {
+        var actionUrl = '@Url.Action("Test", "Home")';
+        $.getJSON(actionUrl, displayData);
+    });
+
+    function displayData(response) {
+        console.log(response);
+        if (response != false) {
+            var today = new Date();
+            var now = today.getDate() + "-" + today.getMonth() + 1 + "-" + today.getFullYear() + " " + today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+            $("#movieList").text(now + " - " + response);
+        }
+    }
+    var i = 0;
+    while (i!=1) {
+        var actionUrl = '@Url.Action("Ping", "Home")';
+        setInterval(function () { $.getJSON(actionUrl, displayData)},3000);
+        i++;
+        console.log(i);
+    }
+
+
+    </script>
     @RenderSection("scripts", required: false)
 </body>
 </html>

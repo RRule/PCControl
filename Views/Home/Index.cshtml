@@ -5,18 +5,19 @@
 <div class="row">
     <div class="col-md-4">
         <h2>Plex</h2>
-        <p>Last update:
-        </p>
+        <p>Last update: </p>
     </div>
     <div class="col-md-4">
         <h2>Current status</h2>
         <p>Current status of pc;</p>
-        <p> @ViewBag.Message </p>
-        <p> @Html.ActionLink("Home", "Index", new { id = ViewBag.URL }) </p>
+        Lastupdate: <ul id="movieList"></ul>
     </div>
     <div class="col-md-4">
         <h2>Click here</h2>
-        <p></p>
+        <p>
+            <input name="btnShutdown" id="btnShutdown" type="submit" value="Shutdown">
+
+        </p>
         <p></p>
     </div>
 </div>
