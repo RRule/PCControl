@@ -70,7 +70,6 @@ namespace PCControl.Controllers
             Ping pingSender = new Ping();
             IPAddress address = IPAddress.Loopback;
             PingReply reply = pingSender.Send(address);
-            IPAddress clientip = IPAddress.Parse(WebConfigurationManager.AppSettings["clientip"]);
             if (reply.Status == IPStatus.Success)
             {
                 return true;
